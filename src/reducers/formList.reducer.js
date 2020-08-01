@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from "uuid";
+
 const newInitialForm = {
   name: "",
   elements: [],
@@ -8,30 +10,34 @@ const initialState = {
     {
       name: "testing 1",
       createdAt: "22/12/2020 12:12",
-      id: 1,
+      id: uuidv4(),
       elements: [
         {
           name: "input",
           position: "right",
+          id: uuidv4(),
         },
         {
           name: "input",
           position: "left",
+          id: uuidv4(),
         },
       ],
     },
     {
       name: "testing 2",
       createdAt: "22/12/2020 12:12",
-      id: 2,
+      id: uuidv4(),
       elements: [
         {
           name: "input",
           position: "right",
+          id: uuidv4(),
         },
         {
           name: "dropdown",
           position: "left",
+          id: uuidv4(),
         },
       ],
     },
@@ -59,7 +65,7 @@ export default (state = initialState, { type, payload }) => {
     case "selectItem":
       let newCurrFormList = {
         ...newInitialForm,
-        id: state.list.length + 1,
+        id: uuidv4(),
       };
 
       if (payload !== "newForm") {
@@ -88,7 +94,10 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         currentFormList: {
           ...state.currentFormList,
-          elements: [...state.currentFormList.elements, { name, position }],
+          elements: [
+            ...state.currentFormList.elements,
+            { name, position, id: uuidv4() },
+          ],
         },
       };
 

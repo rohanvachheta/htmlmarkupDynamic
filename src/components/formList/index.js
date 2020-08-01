@@ -26,7 +26,7 @@ function renderRow(props, handleSelect, activeItem) {
       selected={activeItem === item.id}
       style={style}
       key={index}
-      onClick={() => handleSelect(item.id)}
+      onClick={() => handleSelect(item.id, item)}
     >
       <ListItemText primary={` ${item.name}`} />
     </ListItem>

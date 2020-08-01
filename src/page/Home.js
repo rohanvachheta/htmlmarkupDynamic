@@ -83,7 +83,7 @@ export const HomePage = ({
 };
 
 const mapStateToProps = (state) => ({
-  formList: state.forms,
+  formList: state.formsList,
 });
 
 const mapDispatchToProps = (dispatch) => ({
