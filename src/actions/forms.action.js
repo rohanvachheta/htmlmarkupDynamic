@@ -19,7 +19,6 @@ export const formOnchange = (id, value) => {
 };
 
 export const deleteElement = (index) => {
-  notify("element Deleted!");
   return {
     type: "deleteElement",
     payload: index,
@@ -27,7 +26,6 @@ export const deleteElement = (index) => {
 };
 
 export const addFormItem = (object) => {
-  notify("element added!");
   return {
     type: "addFormItem",
     payload: {
@@ -37,7 +35,7 @@ export const addFormItem = (object) => {
 };
 
 export const saveForm = () => {
-  notify("save chnages !");
+  notify("saved form chnages !");
   return {
     type: "saveForm",
   };

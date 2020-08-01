@@ -8,6 +8,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import StarIcon from "@material-ui/icons/Star";
 import { Checkbox, Button, Input, TextField } from "@material-ui/core";
 import DropdownOption from "./DropdownOption";
+import { Box } from "../draggable/DraggableField";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,6 +25,7 @@ export default function InsetList({ addFormItem }) {
   const [dropdownOption, setdropdownOption] = useState(["option1", "option2"]);
 
   const handleSelection = (selected, options = []) => {
+    console.log("handleSelection -> selected", selected);
     addFormItem({
       name: selected,
       value: "",
@@ -46,69 +48,83 @@ export default function InsetList({ addFormItem }) {
 
   return (
     <List component="nav" className={classes.root} aria-label="contacts">
-      <ListItem button id="checkBox">
-        <ListItemIcon onClick={() => handleSelection("checkBox")}>
-          <AddIcon />
-        </ListItemIcon>
-        <TextField
-          placeholder="checkbox"
-          id="checkBox"
-          style={{ padding: 0 }}
-          onChange={handleInputChange}
-          value={placeHolderValue["checkBox"]}
-        />
-      </ListItem>
-      <ListItem button id="input">
-        <ListItemIcon onClick={() => handleSelection("input")}>
-          <AddIcon />
-        </ListItemIcon>
-        <ListItem>
+      <Box name="checkbox" type="checkbox" handleSelection={handleSelection}>
+        <ListItem button id="checkBox">
+          <ListItemIcon onClick={() => handleSelection("checkBox")}>
+            <AddIcon />
+          </ListItemIcon>
           <TextField
-            variant="outlined"
-            label={placeHolderValue["input"]}
-            placeholder="text input"
-            id="input"
-            value={placeHolderValue["input"]}
+            placeholder="checkbox"
+            id="checkBox"
+            style={{ padding: 0 }}
             onChange={handleInputChange}
+            value={placeHolderValue["checkBox"]}
           />
         </ListItem>
-      </ListItem>{" "}
-      <ListItem button id="email">
-        <ListItemIcon onClick={() => handleSelection("email")}>
-          <AddIcon />
-        </ListItemIcon>
-        <ListItem>
-          <TextField
-            variant="outlined"
-            label={placeHolderValue["email"]}
-            placeholder="Email"
-            id="email"
-            value={placeHolderValue["email"]}
-            onChange={handleInputChange}
-          />
+      </Box>
+      <Box name="input" type="input" handleSelection={handleSelection}>
+        <ListItem button id="input">
+          <ListItemIcon onClick={() => handleSelection("input")}>
+            <AddIcon />
+          </ListItemIcon>
+          <ListItem>
+            <TextField
+              variant="outlined"
+              label={placeHolderValue["input"]}
+              placeholder="text input"
+              id="input"
+              value={placeHolderValue["input"]}
+              onChange={handleInputChange}
+            />
+          </ListItem>
         </ListItem>
-      </ListItem>
-      <ListItem button id="dropdown">
-        <ListItemIcon
-          onClick={() => handleSelection("dropdown", dropdownOption)}
-        >
-          <AddIcon />
-        </ListItemIcon>
-        <ListItem>
-          <form>
-            <label for="test">Add Dropdown </label>
-            <select name="test" id="test">
-              {dropdownOption.map((option) => (
-                <option value={option} key={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-            <br></br>
-          </form>
+      </Box>
+      <Box name="email" type="email" handleSelection={handleSelection}>
+        <ListItem button id="email">
+          <ListItemIcon onClick={() => handleSelection("email")}>
+            <AddIcon />
+          </ListItemIcon>
+          <ListItem>
+            <TextField
+              variant="outlined"
+              label={placeHolderValue["email"]}
+              placeholder="Email"
+              id="email"
+              value={placeHolderValue["email"]}
+              onChange={handleInputChange}
+            />
+          </ListItem>
         </ListItem>
-        <DropdownOption setdropdownOption={setdropdownOption} />
-      </ListItem>
+      </Box>{" "}
+      <Box
+        name="dropdown"
+        dropdownOption={dropdownOption}
+        type="dropdown"
+        handleSelection={handleSelection}
+      >
+        <ListItem button id="dropdown">
+          <ListItemIcon
+            onClick={() => handleSelection("dropdown", dropdownOption)}
+          >
+            <AddIcon />
+          </ListItemIcon>
+
+          <ListItem>
+            <form>
+              <label for="test">Add Dropdown </label>
+              <select name="test" id="test">
+                {dropdownOption.map((option) => (
+                  <option value={option} key={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+              <br></br>
+            </form>
+          </ListItem>
+          <DropdownOption setdropdownOption={setdropdownOption} />
+        </ListItem>
+      </Box>
     </List>
   );
 }

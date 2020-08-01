@@ -1,7 +1,7 @@
 import { notify } from "./forms.action";
 
 export const addRecords = (payload) => {
-  notify("record submitted !");
+  notify("Record added !");
   return {
     type: "addRecord",
     payload,

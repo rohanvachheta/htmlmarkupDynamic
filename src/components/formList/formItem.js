@@ -15,6 +15,7 @@ const FormItem = ({
     const { id, value } = object.target;
     onChange(id, value);
   };
+
   return (
     <div>
       <div>
