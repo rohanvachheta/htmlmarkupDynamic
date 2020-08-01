@@ -3,12 +3,14 @@ import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
+import { Tooltip } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
-import ListItemText from "@material-ui/core/ListItemText";
-import StarIcon from "@material-ui/icons/Star";
-import { Checkbox, Button, Input, TextField } from "@material-ui/core";
+
+// own components
 import DropdownOption from "./DropdownOption";
 import { Box } from "../draggable/DraggableField";
+import TextInput from "../textField/TextInput";
+import Dropdown from "./Dropdown";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,17 +48,22 @@ export default function InsetList({ addFormItem }) {
     }));
   };
 
+  const addIconArrow = (
+    <Tooltip title="add element" arrow>
+      <AddIcon />
+    </Tooltip>
+  );
+
   return (
     <List component="nav" className={classes.root} aria-label="contacts">
       <Box name="checkbox" type="checkbox" handleSelection={handleSelection}>
         <ListItem button id="checkBox">
           <ListItemIcon onClick={() => handleSelection("checkBox")}>
-            <AddIcon />
+            {addIconArrow}
           </ListItemIcon>
-          <TextField
+          <TextInput
             placeholder="checkbox"
             id="checkBox"
-            style={{ padding: 0 }}
             onChange={handleInputChange}
             value={placeHolderValue["checkBox"]}
           />
@@ -65,11 +72,10 @@ export default function InsetList({ addFormItem }) {
       <Box name="input" type="input" handleSelection={handleSelection}>
         <ListItem button id="input">
           <ListItemIcon onClick={() => handleSelection("input")}>
-            <AddIcon />
+            {addIconArrow}
           </ListItemIcon>
           <ListItem>
-            <TextField
-              variant="outlined"
+            <TextInput
               label={placeHolderValue["input"]}
               placeholder="text input"
               id="input"
@@ -82,11 +88,10 @@ export default function InsetList({ addFormItem }) {
       <Box name="email" type="email" handleSelection={handleSelection}>
         <ListItem button id="email">
           <ListItemIcon onClick={() => handleSelection("email")}>
-            <AddIcon />
+            {addIconArrow}
           </ListItemIcon>
           <ListItem>
-            <TextField
-              variant="outlined"
+            <TextInput
               label={placeHolderValue["email"]}
               placeholder="Email"
               id="email"
@@ -95,7 +100,7 @@ export default function InsetList({ addFormItem }) {
             />
           </ListItem>
         </ListItem>
-      </Box>{" "}
+      </Box>
       <Box
         name="dropdown"
         dropdownOption={dropdownOption}
@@ -106,21 +111,15 @@ export default function InsetList({ addFormItem }) {
           <ListItemIcon
             onClick={() => handleSelection("dropdown", dropdownOption)}
           >
-            <AddIcon />
+            {addIconArrow}
           </ListItemIcon>
 
           <ListItem>
-            <form>
-              <label for="test">Add Dropdown </label>
-              <select name="test" id="test">
-                {dropdownOption.map((option) => (
-                  <option value={option} key={option}>
-                    {option}
-                  </option>
-                ))}
-              </select>
-              <br></br>
-            </form>
+            <Dropdown
+              options={dropdownOption}
+              id="dropdown-drag"
+              label="Add Dropdown"
+            />
           </ListItem>
           <DropdownOption setdropdownOption={setdropdownOption} />
         </ListItem>

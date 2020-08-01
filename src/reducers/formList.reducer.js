@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
+import { Actions } from "../constance";
 
 const newInitialForm = {
   name: "",
@@ -11,23 +12,14 @@ const initialState = {
   currentFormList: [
     {
       name: "",
-      elements: [
-        {
-          name: "input",
-          position: "right",
-        },
-        {
-          name: "dropdown",
-          position: "left",
-        },
-      ],
+      elements: [],
     },
   ],
 };
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
-    case "selectItem":
+    case Actions.SELECT_ITEM:
       let newCurrFormList = {
         ...newInitialForm,
         id: uuidv4(),
@@ -36,13 +28,14 @@ export default (state = initialState, { type, payload }) => {
       if (payload !== "newForm") {
         newCurrFormList = state.list.find((item) => item.id === payload);
       }
+
       return {
         ...state,
         currentForm: payload,
         currentFormList: newCurrFormList,
       };
 
-    case "updateForm":
+    case Actions.UPDATE_FORM:
       const { id, value } = payload;
       if (!id) return state;
       return {
@@ -53,7 +46,7 @@ export default (state = initialState, { type, payload }) => {
         },
       };
 
-    case "addFormItem":
+    case Actions.ADD_FORM_ELEMENT:
       return {
         ...state,
         currentFormList: {
@@ -62,17 +55,18 @@ export default (state = initialState, { type, payload }) => {
         },
       };
 
-    case "deleteElement":
+    case Actions.DELETE_ELEMENT:
       const newList = state.currentFormList;
       newList.elements = newList.elements.filter(
-        (i, index) => index !== payload
+        (element, index) => element && index !== payload
       );
+
       return {
         ...state,
         currentFormList: { ...newList },
       };
 
-    case "saveForm":
+    case Actions.SAVE_FORM:
       const indexOfItem = state.list.findIndex(
         (item) => item.id === state.currentFormList.id
       );

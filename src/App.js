@@ -5,7 +5,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import AutoGrid from "./page/Home";
+import AutoGrid from "./page/home/Home";
 import CSSGrid from "./page/Forms";
 import RecordsPage from "./page/Records";
 

@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
+import { Actions } from "../constance";
 
 const initialState = {
   list: [],
@@ -6,10 +7,10 @@ const initialState = {
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
-    case "addRecord":
+    case Actions.ADD_RECORD:
       return { ...state, list: [...state.list, { ...payload, id: uuidv4() }] };
 
-    case "saveRecord":
+    case Actions.SAVE_RECORD:
       const indexOfItem = state.list.findIndex(
         (item) => item.id === state.currentFormList.id
       );
@@ -27,7 +28,7 @@ export default (state = initialState, { type, payload }) => {
         list: [...state.list, state.currentFormList],
       };
 
-    case "recordChange":
+    case Actions.RECORD_CHANGE:
       const { id, value } = payload;
       const newRecordElement = [...state.currentFormList.elements];
       newRecordElement[id].value = value;
@@ -40,7 +41,7 @@ export default (state = initialState, { type, payload }) => {
         },
       };
 
-    case "selectrecord":
+    case Actions.SELECT_RECORD:
       const newCurrFormList = state.list.find((item) => item.id === payload.id);
       return {
         ...state,

@@ -1,13 +1,11 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
-import Icon from "@material-ui/core/Icon";
 import DeleteIcon from "@material-ui/icons/Delete";
 import SaveIcon from "@material-ui/icons/Save";
 import {
   List,
   ListItem,
-  ListItemIcon,
   ListItemText,
   Button,
   FormGroup,
@@ -79,7 +77,7 @@ export default function SimpleModal({ setdropdownOption }) {
     <div style={modalStyle} className={classes.paper}>
       <List component="nav" className={classes.root} aria-label="contacts">
         {options.map((item) => (
-          <ListItem button>
+          <ListItem button key={item}>
             <ListItemText primary={item} />
             <IconButton
               aria-label="delete"

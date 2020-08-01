@@ -1,5 +1,5 @@
 import React from "react";
-import { TextField, Checkbox, Button, IconButton } from "@material-ui/core";
+import { TextField, Checkbox, IconButton } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 
 import PropTypes from "prop-types";
@@ -33,9 +33,9 @@ const FormItem = ({
       </div>
       {elements.map(
         ({ name, postition, id, value, placeholder, options }, index) => {
-          if (!name) return null;
           let deleteIcon = (
             <IconButton
+              key={id}
               aria-label="delete"
               onClick={() => deleteElement(index)}
             >
@@ -50,6 +50,7 @@ const FormItem = ({
               <div key={id}>
                 <TextField
                   id={id}
+                  size="small"
                   label={placeholder}
                   variant="outlined"
                   placeholder={placeholder}
@@ -71,7 +72,7 @@ const FormItem = ({
               <div key={id}>
                 <Checkbox
                   id={id}
-                  checked={value}
+                  checked={!!value}
                   onChange={(event) => {
                     handleElementChange(index, event.target.checked);
                   }}
@@ -84,7 +85,7 @@ const FormItem = ({
 
           if (name === "dropdown") {
             return (
-              <div>
+              <div key={id}>
                 <select
                   name="test"
                   id="test"
