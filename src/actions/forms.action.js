@@ -15,11 +15,18 @@ export const formOnchange = (id, value) => {
   };
 };
 
-export const addFormItem = (name) => {
+export const deleteElement = (index) => {
+  return {
+    type: "deleteElement",
+    payload: index,
+  };
+};
+
+export const addFormItem = (object) => {
   return {
     type: "addFormItem",
     payload: {
-      name,
+      ...object,
     },
   };
 };

@@ -20,3 +20,9 @@ export const onchangeRecord = (id, value) => {
     },
   };
 };
+
+export const unmountComponent = () => {
+  return {
+    type: "unmount",
+  };
+};

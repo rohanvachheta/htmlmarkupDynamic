@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -7,6 +7,7 @@ import AddIcon from "@material-ui/icons/Add";
 import ListItemText from "@material-ui/core/ListItemText";
 import StarIcon from "@material-ui/icons/Star";
 import { Checkbox, Button, Input, TextField } from "@material-ui/core";
+import DropdownOption from "./DropdownOption";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,8 +20,28 @@ const useStyles = makeStyles((theme) => ({
 export default function InsetList({ addFormItem }) {
   const classes = useStyles();
 
-  const handleSelection = (selected) => {
-    addFormItem(selected);
+  const [placeHolderValue, setplaceHolderValue] = useState({});
+  const [dropdownOption, setdropdownOption] = useState(["option1", "option2"]);
+
+  const handleSelection = (selected, options = []) => {
+    addFormItem({
+      name: selected,
+      value: "",
+      placeholder: placeHolderValue[selected] || `select a ${selected}`,
+      options,
+    });
+    setplaceHolderValue((prevState) => ({
+      ...prevState,
+      [selected]: "",
+    }));
+  };
+
+  const handleInputChange = (event) => {
+    const { id, value } = event.target;
+    setplaceHolderValue((prevState) => ({
+      ...prevState,
+      [id]: value,
+    }));
   };
 
   return (
@@ -29,48 +50,60 @@ export default function InsetList({ addFormItem }) {
         <ListItemIcon onClick={() => handleSelection("checkBox")}>
           <AddIcon />
         </ListItemIcon>
-        <ListItemText primary="CheckBox" />
+        <Input
+          placeholder="checkbox"
+          id="checkBox"
+          style={{ padding: 0 }}
+          onChange={handleInputChange}
+          value={placeHolderValue["checkBox"]}
+        />
       </ListItem>
-      <ListItem
-        button
-        id="textInput"
-        onClick={() => handleSelection("textInput")}
-      >
-        <ListItemIcon>
+      <ListItem button id="input">
+        <ListItemIcon onClick={() => handleSelection("input")}>
           <AddIcon />
         </ListItemIcon>
         <ListItem>
-          <Input placeholder="text input" />
+          <Input
+            placeholder="text input"
+            id="input"
+            value={placeHolderValue["input"]}
+            onChange={handleInputChange}
+          />
         </ListItem>
       </ListItem>{" "}
-      <ListItem button id="email" onClick={() => handleSelection("email")}>
-        <ListItemIcon>
+      <ListItem button id="email">
+        <ListItemIcon onClick={() => handleSelection("email")}>
           <AddIcon />
         </ListItemIcon>
         <ListItem>
-          <Input placeholder="Email" style={{ padding: 0 }} />
+          <Input
+            placeholder="Email"
+            id="email"
+            value={placeHolderValue["email"]}
+            onChange={handleInputChange}
+          />
         </ListItem>
       </ListItem>
-      <ListItem
-        button
-        id="dropdown"
-        onClick={() => handleSelection("dropdown")}
-      >
-        <ListItemIcon>
+      <ListItem button id="dropdown">
+        <ListItemIcon
+          onClick={() => handleSelection("dropdown", dropdownOption)}
+        >
           <AddIcon />
         </ListItemIcon>
         <ListItem>
           <form>
             <label for="test">Add Dropdown </label>
             <select name="test" id="test">
-              <option value="option1">option1</option>
-              <option value="option2">option2</option>
-              <option value="option3">option3</option>
-              <option value="option4">option4</option>
+              {dropdownOption.map((option) => (
+                <option value={option} key={option}>
+                  {option}
+                </option>
+              ))}
             </select>
             <br></br>
           </form>
         </ListItem>
+        <DropdownOption setdropdownOption={setdropdownOption} />
       </ListItem>
     </List>
   );

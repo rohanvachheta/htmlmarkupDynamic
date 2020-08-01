@@ -1,5 +1,6 @@
 import React from "react";
-import { TextField } from "@material-ui/core";
+import { TextField, Checkbox, Button, IconButton } from "@material-ui/core";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 import PropTypes from "prop-types";
 
@@ -7,6 +8,8 @@ const FormItem = ({
   data: { name, elements },
   onChange,
   handleElementChange,
+  deleteElement,
+  showDeleteIcon,
 }) => {
   const handleChange = (object) => {
     const { id, value } = object.target;
@@ -25,25 +28,84 @@ const FormItem = ({
           onChange={handleChange}
         />
       </div>
-      {elements.map(({ name, postition, id, value }, index) => {
-        if (name === "input") {
+      {elements.map(
+        ({ name, postition, id, value, placeholder, options }, index) => {
+          if (!name) return null;
+          let deleteIcon = (
+            <IconButton
+              aria-label="delete"
+              onClick={() => deleteElement(index)}
+            >
+              <DeleteIcon />
+            </IconButton>
+          );
+          if (!showDeleteIcon) {
+            deleteIcon = null;
+          }
+          if (name === "input" || name === "email") {
+            return (
+              <div key={id}>
+                <TextField
+                  id={id}
+                  placeholder={placeholder}
+                  type={name === "email" ? "email" : "text"}
+                  value={value}
+                  margin="dense"
+                  required={!!name === "email"}
+                  onChange={(event) => {
+                    handleElementChange(index, event.target.value);
+                  }}
+                />
+                {deleteIcon}
+              </div>
+            );
+          }
+
+          if (name === "checkBox") {
+            return (
+              <div key={id}>
+                <Checkbox
+                  id={id}
+                  checked={value}
+                  onChange={(event) => {
+                    handleElementChange(index, event.target.checked);
+                  }}
+                />
+                {placeholder}
+                {deleteIcon}
+              </div>
+            );
+          }
+
+          if (name === "dropdown") {
+            return (
+              <div>
+                <select
+                  name="test"
+                  id="test"
+                  value={value}
+                  onChange={(event) => {
+                    handleElementChange(index, event.target.value);
+                  }}
+                >
+                  {options &&
+                    options.map((option) => (
+                      <option value={option} key={option}>
+                        {option}
+                      </option>
+                    ))}
+                </select>
+              </div>
+            );
+          }
+
           return (
             <div key={id}>
-              <TextField
-                id={id}
-                placeholder="enter title"
-                type="text"
-                value={value}
-                margin="dense"
-                onChange={(event) => {
-                  handleElementChange(index, event.target.value);
-                }}
-              />
+              {name} {deleteIcon}
             </div>
           );
         }
-        return <div key={id}>{name}</div>;
-      })}
+      )}
     </div>
   );
 };
@@ -56,6 +118,7 @@ FormItem.propTypes = {
 FormItem.defaultProps = {
   handleElementChange: () => {},
   onChange: () => {},
+  deleteElement: () => {},
 };
 
 export default FormItem;

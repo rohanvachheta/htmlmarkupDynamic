@@ -8,6 +8,16 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         selectItem: payload,
+        backUplist: payload,
+      };
+
+    case "unmount":
+      return initialState;
+
+    case "addRecord":
+      return {
+        ...state,
+        selectItem: state.backUplist,
       };
 
     case "changeElementValue":

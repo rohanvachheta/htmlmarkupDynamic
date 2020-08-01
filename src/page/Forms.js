@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -11,6 +11,7 @@ import FormItem from "../components/formList/formItem";
 import {
   selectFormRecord,
   handleElementChange,
+  unmountComponent,
 } from "../actions/formsRecord.action";
 import { Button } from "@material-ui/core";
 import { addRecords } from "../actions/records.action";
@@ -39,7 +40,14 @@ export const Forms = ({
   selectFormRecord,
   handleElementChange,
   addRecord,
+  unMount,
 }) => {
+  useEffect(() => {
+    return () => {
+      unMount();
+    };
+  }, [unMount]);
+
   const { selectItem } = formRecords;
   const currentForm = formRecords && formRecords.selectItem && selectItem.id;
 
@@ -119,6 +127,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   addRecord: (value) => {
     dispatch(addRecords(value));
+  },
+  unMount: () => {
+    dispatch(unmountComponent());
   },
 });
 

@@ -16,11 +16,13 @@ const initialState = {
           name: "input",
           position: "right",
           id: uuidv4(),
+          value: "",
         },
         {
           name: "input",
           position: "left",
           id: uuidv4(),
+          value: "",
         },
       ],
     },
@@ -33,11 +35,13 @@ const initialState = {
           name: "input",
           position: "right",
           id: uuidv4(),
+          value: "",
         },
         {
           name: "dropdown",
           position: "left",
           id: uuidv4(),
+          value: "",
         },
       ],
     },
@@ -89,16 +93,22 @@ export default (state = initialState, { type, payload }) => {
       };
 
     case "addFormItem":
-      const { name, position } = payload;
       return {
         ...state,
         currentFormList: {
           ...state.currentFormList,
-          elements: [
-            ...state.currentFormList.elements,
-            { name, position, id: uuidv4() },
-          ],
+          elements: [...(state.currentFormList.elements || []), { ...payload }],
         },
+      };
+
+    case "deleteElement":
+      const newList = state.currentFormList;
+      newList.elements = newList.elements.filter(
+        (i, index) => index !== payload
+      );
+      return {
+        ...state,
+        currentFormList: { ...newList },
       };
 
     case "saveForm":

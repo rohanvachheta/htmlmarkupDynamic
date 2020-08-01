@@ -11,6 +11,7 @@ import {
   formOnchange,
   addFormItem,
   saveForm,
+  deleteElement,
 } from "../actions/forms.action";
 import FormItem from "../components/formList/formItem";
 
@@ -31,6 +32,7 @@ export const HomePage = ({
   onChange,
   addFormItem,
   saveForm,
+  deleteElement,
 }) => {
   const classes = useStyles();
   const { currentForm, currentFormList } = formList;
@@ -68,7 +70,12 @@ export const HomePage = ({
           <Paper className={classes.paper}>
             {!currentForm && "no Forms found ,please create new !!"}
             {currentForm && (
-              <FormItem data={currentFormList} onChange={onChange} />
+              <FormItem
+                showDeleteIcon
+                data={currentFormList}
+                onChange={onChange}
+                deleteElement={deleteElement}
+              />
             )}
           </Paper>
         </Grid>
@@ -98,6 +105,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   saveForm: () => {
     dispatch(saveForm());
+  },
+  deleteElement: (index) => {
+    dispatch(deleteElement(index));
   },
 });
 
