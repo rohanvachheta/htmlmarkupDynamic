@@ -103,6 +103,7 @@ export const Forms = ({
                 variant="contained"
                 color="primary"
                 onClick={handleAddForm}
+                className={classes.divider}
               >
                 create form
               </Button>

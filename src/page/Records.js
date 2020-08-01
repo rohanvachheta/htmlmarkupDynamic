@@ -69,7 +69,7 @@ export const Records = ({
                 />
                 <Button
                   variant="contained"
-                  color="secondary"
+                  color="primary"
                   className={classes.divider}
                   onClick={saveRecord}
                 >
