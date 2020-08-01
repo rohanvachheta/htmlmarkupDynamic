@@ -1,10 +1,12 @@
+import { Actions } from "../constance";
+
 export const selectFormRecord = (payload) => ({
-  type: "selecFormtItem",
+  type: Actions.SELECT_FORM_ITEM,
   payload,
 });
 
 export const handleElementChange = (id, value) => ({
-  type: "changeElementValue",
+  type: Actions.CHANGE_ELEMENT_VALUE,
   payload: {
     id,
     value,
@@ -13,7 +15,7 @@ export const handleElementChange = (id, value) => ({
 
 export const onchangeRecord = (id, value) => {
   return {
-    type: "selectrecord",
+    type: Actions.SELECT_RECORD,
     payload: {
       id,
       value,
@@ -23,6 +25,6 @@ export const onchangeRecord = (id, value) => {
 
 export const unmountComponent = () => {
   return {
-    type: "unmount",
+    type: Actions.UNMOUNT_COMPONENT,
   };
 };
