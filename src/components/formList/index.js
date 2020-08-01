@@ -4,7 +4,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { FixedSizeList } from "react-window";
-import { Button } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,6 +40,7 @@ renderRow.propTypes = {
 
 function VirtualizedList({ list, handleSelect, activeItem }) {
   const classes = useStyles();
+  if (!list) return null;
 
   return (
     <div className={classes.root}>

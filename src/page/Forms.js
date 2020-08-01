@@ -51,6 +51,10 @@ export const Forms = ({
   const { selectItem } = formRecords;
   const currentForm = formRecords && formRecords.selectItem && selectItem.id;
 
+  let text = "please select any form ";
+  if (!formList.list.length) {
+    text = "No form exists !! create new one";
+  }
   const classes = useStyles();
   return (
     <div>
@@ -59,25 +63,6 @@ export const Forms = ({
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={4}>
-          {currentForm && (
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => {
-                const date = new Date();
-                addRecord({
-                  ...selectItem,
-                  createdAt: date,
-                  name: `Id: ${selectItem.id.substr(
-                    0,
-                    5
-                  )}, createdAt: ${date.getDate()}/${date.getMonth()}/${date.getFullYear()} ,${date.getHours()}:${date.getMinutes()}`,
-                });
-              }}
-            >
-              create form
-            </Button>
-          )}
           <Paper className={classes.paper}>
             <FormList
               activeItem={currentForm}
@@ -99,7 +84,26 @@ export const Forms = ({
                 handleElementChange={handleElementChange}
               />
             ) : (
-              "No form exists, please make a new Form !!"
+              text
+            )}
+            {currentForm && (
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => {
+                  const date = new Date();
+                  addRecord({
+                    ...selectItem,
+                    createdAt: date,
+                    name: `Id: ${selectItem.id.substr(
+                      0,
+                      5
+                    )}, createdAt: ${date.getDate()}/${date.getMonth()}/${date.getFullYear()} ,${date.getHours()}:${date.getMinutes()}`,
+                  });
+                }}
+              >
+                create form
+              </Button>
             )}
           </Paper>
         </Grid>

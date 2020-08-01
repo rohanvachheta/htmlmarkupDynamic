@@ -50,7 +50,7 @@ export default function InsetList({ addFormItem }) {
         <ListItemIcon onClick={() => handleSelection("checkBox")}>
           <AddIcon />
         </ListItemIcon>
-        <Input
+        <TextField
           placeholder="checkbox"
           id="checkBox"
           style={{ padding: 0 }}
@@ -63,7 +63,9 @@ export default function InsetList({ addFormItem }) {
           <AddIcon />
         </ListItemIcon>
         <ListItem>
-          <Input
+          <TextField
+            variant="outlined"
+            label={placeHolderValue["input"]}
             placeholder="text input"
             id="input"
             value={placeHolderValue["input"]}
@@ -76,7 +78,9 @@ export default function InsetList({ addFormItem }) {
           <AddIcon />
         </ListItemIcon>
         <ListItem>
-          <Input
+          <TextField
+            variant="outlined"
+            label={placeHolderValue["email"]}
             placeholder="Email"
             id="email"
             value={placeHolderValue["email"]}

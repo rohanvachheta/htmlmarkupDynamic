@@ -9,6 +9,8 @@ import Grid from "@material-ui/core/Grid";
 import FormList from "../components/formList";
 import { onchangeRecord } from "../actions/formsRecord.action";
 import FormItem from "../components/formList/formItem";
+import { handleRecordChange, saveRecord } from "../actions/records.action";
+import { Button } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -28,10 +30,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const Records = ({ formList, onChange }) => {
+export const Records = ({
+  formList,
+  onChange,
+  handleRecordChange,
+  saveRecord,
+}) => {
   const { currentFormList } = formList;
   const currentForm = currentFormList && currentFormList.id;
   const classes = useStyles();
+  let text = "please select any form ";
+  if (!formList.list.length) {
+    text = "No form exists !! create new one";
+  }
+
   return (
     <div>
       <Typography variant="subtitle1" gutterBottom>
@@ -50,9 +62,22 @@ export const Records = ({ formList, onChange }) => {
         <Grid item xs={8}>
           <Paper className={classes.paper}>
             {currentForm ? (
-              <FormItem data={currentFormList} handleElementChange={() => {}} />
+              <>
+                <FormItem
+                  data={currentFormList}
+                  handleElementChange={handleRecordChange}
+                />{" "}
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  style={{ marginLeft: "5px" }}
+                  onClick={() => saveRecord()}
+                >
+                  save changes
+                </Button>
+              </>
             ) : (
-              "No form exists, please make a new Form !!"
+              text
             )}
           </Paper>
         </Grid>
@@ -73,6 +98,12 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onChange: (id, value) => {
     dispatch(onchangeRecord(id, value));
+  },
+  handleRecordChange: (id, value) => {
+    dispatch(handleRecordChange(id, value));
+  },
+  saveRecord: () => {
+    dispatch(saveRecord());
   },
 });
 

@@ -24,6 +24,8 @@ const FormItem = ({
           type="text"
           value={name}
           margin="dense"
+          label="Title"
+          variant="outlined"
           fullWidth
           onChange={handleChange}
         />
@@ -47,6 +49,8 @@ const FormItem = ({
               <div key={id}>
                 <TextField
                   id={id}
+                  label={placeholder}
+                  variant="outlined"
                   placeholder={placeholder}
                   type={name === "email" ? "email" : "text"}
                   value={value}

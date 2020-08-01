@@ -6,46 +6,7 @@ const newInitialForm = {
 };
 
 const initialState = {
-  list: [
-    {
-      name: "testing 1",
-      createdAt: "22/12/2020 12:12",
-      id: uuidv4(),
-      elements: [
-        {
-          name: "input",
-          position: "right",
-          id: uuidv4(),
-          value: "",
-        },
-        {
-          name: "input",
-          position: "left",
-          id: uuidv4(),
-          value: "",
-        },
-      ],
-    },
-    {
-      name: "testing 2",
-      createdAt: "22/12/2020 12:12",
-      id: uuidv4(),
-      elements: [
-        {
-          name: "input",
-          position: "right",
-          id: uuidv4(),
-          value: "",
-        },
-        {
-          name: "dropdown",
-          position: "left",
-          id: uuidv4(),
-          value: "",
-        },
-      ],
-    },
-  ],
+  list: [],
   currentForm: null,
   currentFormList: [
     {
