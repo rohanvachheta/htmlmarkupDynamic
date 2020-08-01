@@ -5,6 +5,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import { Tooltip } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
+import { v4 as uuidv4 } from "uuid";
 
 // own components
 import DropdownOption from "./DropdownOption";
@@ -27,12 +28,12 @@ export default function InsetList({ addFormItem }) {
   const [dropdownOption, setdropdownOption] = useState(["option1", "option2"]);
 
   const handleSelection = (selected, options = []) => {
-    console.log("handleSelection -> selected", selected);
     addFormItem({
       name: selected,
       value: "",
       placeholder: placeHolderValue[selected] || `select a ${selected}`,
       options,
+      id: uuidv4(),
     });
     setplaceHolderValue((prevState) => ({
       ...prevState,

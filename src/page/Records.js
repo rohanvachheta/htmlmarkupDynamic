@@ -66,12 +66,12 @@ export const Records = ({
                 <FormItem
                   data={currentFormList}
                   handleElementChange={handleRecordChange}
-                />{" "}
+                />
                 <Button
                   variant="contained"
                   color="secondary"
-                  style={{ marginLeft: "5px" }}
-                  onClick={() => saveRecord()}
+                  className={classes.divider}
+                  onClick={saveRecord}
                 >
                   save changes
                 </Button>

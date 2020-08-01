@@ -56,6 +56,18 @@ export const Forms = ({
     text = "No form exists !! create new one";
   }
   const classes = useStyles();
+
+  const handleAddForm = () => {
+    const date = new Date();
+    addRecord({
+      ...selectItem,
+      createdAt: date,
+      name: `Id: ${selectItem.id.substr(
+        0,
+        5
+      )}, createdAt: ${date.getDate()}/${date.getMonth()}/${date.getFullYear()} ,${date.getHours()}:${date.getMinutes()}`,
+    });
+  };
   return (
     <div>
       <Typography variant="subtitle1" gutterBottom>
@@ -90,17 +102,7 @@ export const Forms = ({
               <Button
                 variant="contained"
                 color="primary"
-                onClick={() => {
-                  const date = new Date();
-                  addRecord({
-                    ...selectItem,
-                    createdAt: date,
-                    name: `Id: ${selectItem.id.substr(
-                      0,
-                      5
-                    )}, createdAt: ${date.getDate()}/${date.getMonth()}/${date.getFullYear()} ,${date.getHours()}:${date.getMinutes()}`,
-                  });
-                }}
+                onClick={handleAddForm}
               >
                 create form
               </Button>
@@ -111,10 +113,6 @@ export const Forms = ({
       <Divider className={classes.divider} />
     </div>
   );
-};
-
-Forms.propTypes = {
-  // prop: PropTypes
 };
 
 const mapStateToProps = (state) => ({
