@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
-import { Tooltip } from "@material-ui/core";
+import { Tooltip, Checkbox } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import { v4 as uuidv4 } from "uuid";
 
@@ -57,13 +57,14 @@ export default function InsetList({ addFormItem }) {
 
   return (
     <List component="nav" className={classes.root} aria-label="contacts">
-      <Box name="checkbox" type="checkbox" handleSelection={handleSelection}>
+      <Box name="checkBox" type="checkBox" handleSelection={handleSelection}>
         <ListItem button id="checkBox">
           <ListItemIcon onClick={() => handleSelection("checkBox")}>
             {addIconArrow}
+            <Checkbox style={{ margin: 0, padding: 0 }} />
           </ListItemIcon>
           <TextInput
-            placeholder="checkbox"
+            placeholder="select a checkBox"
             id="checkBox"
             onChange={handleInputChange}
             value={placeHolderValue["checkBox"]}
